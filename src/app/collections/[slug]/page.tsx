@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import TourCard from "@/components/TourCard";
 
 const COLLECTION_DATA: Record<
@@ -55,6 +56,28 @@ const COLLECTION_DATA: Record<
     ],
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const collection = COLLECTION_DATA[slug];
+  if (!collection) return { title: "Collection Not Found" };
+
+  return {
+    title: `${collection.title} Tours — Niagara Falls`,
+    description: collection.description,
+    openGraph: {
+      title: `${collection.title} Tours — Niagara Falls | Explore Niagara`,
+      description: collection.description,
+    },
+    alternates: {
+      canonical: `https://explore-niagara.com/collections/${slug}`,
+    },
+  };
+}
 
 export default async function CollectionPage({
   params,

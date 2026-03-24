@@ -1,4 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Blog — Tips, Guides & Stories",
+  description:
+    "Tips, guides, and stories to help you get the most out of your Niagara Falls adventure. Travel guides, seasonal tips, and insider recommendations.",
+  openGraph: {
+    title: "Explore Niagara Blog — Tips, Guides & Stories",
+    description:
+      "Tips, guides, and stories to help you plan your Niagara Falls trip.",
+  },
+  alternates: {
+    canonical: "https://explore-niagara.com/blog",
+  },
+};
 
 const PLACEHOLDER_POSTS = [
   {

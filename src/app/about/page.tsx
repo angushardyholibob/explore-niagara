@@ -1,4 +1,19 @@
+import type { Metadata } from "next";
 import { ShieldCheck, Zap, CalendarX2, MapPin, Heart, Users } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn about Explore Niagara — a team of passionate locals helping visitors discover the best tours and attractions in Niagara Falls.",
+  openGraph: {
+    title: "About Explore Niagara",
+    description:
+      "A team of passionate locals helping visitors discover the best tours and attractions in Niagara Falls.",
+  },
+  alternates: {
+    canonical: "https://explore-niagara.com/about",
+  },
+};
 
 export default function AboutPage() {
   return (

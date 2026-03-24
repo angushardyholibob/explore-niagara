@@ -55,11 +55,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic tour routes from Holibob API
   let tourRoutes: MetadataRoute.Sitemap = [];
   try {
-    const result = await productDiscovery({
-      where: { freeText: "Niagara Falls" },
-      count: 100,
-    });
-    tourRoutes = result.products.map((product) => ({
+    // Holibob API limits to 20 per request — paginate to get all products
+    const allProducts: { id: string }[] = [];
+    let seenIds: string[] = [];
+    let hasMore = true;
+
+    while (hasMore) {
+      const result = await productDiscovery({
+        where: { freeText: "Niagara Falls" },
+        count: 20,
+        seenProductIdList: seenIds,
+      });
+      if (result.products.length === 0) break;
+      allProducts.push(...result.products);
+      seenIds = allProducts.map((p) => p.id);
+      hasMore = result.products.length === 20;
+    }
+    tourRoutes = allProducts.map((product) => ({
       url: `${BASE_URL}/tours/${product.id}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,

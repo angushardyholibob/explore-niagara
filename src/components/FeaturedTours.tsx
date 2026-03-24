@@ -92,12 +92,12 @@ export default function FeaturedTours() {
   return (
     <section className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-dark">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
               Top Tours
             </h2>
-            <p className="text-gray-500 mt-2">
+            <p className="text-gray-500 mt-2 text-sm sm:text-base">
               Our most popular experiences in Niagara Falls
             </p>
           </div>

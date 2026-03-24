@@ -1,8 +1,23 @@
+import type { Metadata } from "next";
 import { productDiscovery, transformProductToTour } from "@/lib/holibob/api";
 import TourCard from "@/components/TourCard";
 import LoadMoreTours from "@/components/LoadMoreTours";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "All Tours & Experiences in Niagara Falls",
+  description:
+    "Browse and book the best tours, activities, and experiences in Niagara Falls. Maid of the Mist, Cave of the Winds, jet boats, wine tours and more. Instant confirmation.",
+  openGraph: {
+    title: "All Tours & Experiences in Niagara Falls | Explore Niagara",
+    description:
+      "Browse and book the best tours, activities, and experiences in Niagara Falls.",
+  },
+  alternates: {
+    canonical: "https://explore-niagara.com/tours",
+  },
+};
 
 export default async function ToursPage() {
   const result = await productDiscovery({

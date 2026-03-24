@@ -27,7 +27,7 @@ export default function Header() {
               alt="Explore Niagara"
               width={200}
               height={50}
-              className="h-10 w-auto"
+              className="h-8 sm:h-10 w-auto"
               priority
             />
           </Link>

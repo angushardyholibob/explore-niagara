@@ -127,6 +127,18 @@ export default async function TourDetailPage({
 
   return (
     <div className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(tourJsonLd(product)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(tourProductJsonLd(product)),
+        }}
+      />
       {/* Back Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <Link

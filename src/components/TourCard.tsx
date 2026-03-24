@@ -78,14 +78,14 @@ export default function TourCard({ tour }: { tour: Tour }) {
               </div>
             )}
           </div>
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
               <span className="text-xs text-gray-400">From</span>
-              <span className="text-lg font-bold text-dark ml-1">
+              <span className="text-base sm:text-lg font-bold text-dark ml-1 truncate">
                 {tour.priceFormatted || `$${tour.price.toFixed(2)}`}
               </span>
             </div>
-            <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1.5 rounded-full group-hover:bg-primary group-hover:text-white transition-colors">
+            <span className="text-xs text-primary font-medium bg-primary/10 px-3 py-1.5 rounded-full group-hover:bg-primary group-hover:text-white transition-colors shrink-0">
               Book Now
             </span>
           </div>

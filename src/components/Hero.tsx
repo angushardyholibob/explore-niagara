@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative h-[85vh] min-h-[550px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[70vh] sm:h-[85vh] min-h-[420px] sm:min-h-[550px] flex items-center justify-center overflow-hidden">
       {/* Background Image Placeholder */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0a3d5c] via-[#0b6b96] to-[#0289c1]">
         {/* Decorative waterfall-like overlay */}
