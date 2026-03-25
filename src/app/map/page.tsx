@@ -4,6 +4,8 @@ import ExperienceMap from "@/components/ExperienceMap";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Experience Map — Explore Niagara",
   description:
