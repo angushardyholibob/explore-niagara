@@ -61,8 +61,12 @@ export default function TourCard({ tour }: { tour: Tour }) {
           </h3>
           <div className="flex items-center gap-3 mb-3">
             {tour.rating > 0 && (
-              <div className="flex items-center gap-1">
-                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <div
+                className="flex items-center gap-1"
+                role="img"
+                aria-label={`Rated ${tour.rating} out of 5${tour.reviewCount > 0 ? ` from ${tour.reviewCount.toLocaleString()} reviews` : ""}`}
+              >
+                <Star className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
                 <span className="text-sm font-medium">{tour.rating}</span>
                 {tour.reviewCount > 0 && (
                   <span className="text-sm text-gray-400">

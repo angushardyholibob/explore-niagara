@@ -25,7 +25,8 @@ export function organizationJsonLd() {
     name: "Explore Niagara",
     url: BASE_URL,
     logo: `${BASE_URL}/logo.webp`,
-    sameAs: [],
+    // Add social media URLs here as they are created
+    // sameAs: ["https://instagram.com/exploreniagara", "https://youtube.com/@exploreniagara"],
     contactPoint: {
       "@type": "ContactPoint",
       email: "info@exploreniagara.com",
@@ -135,6 +136,7 @@ export function blogPostJsonLd(post: {
   excerpt: string;
   slug: string;
   date: string;
+  isoDate: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -142,7 +144,14 @@ export function blogPostJsonLd(post: {
     headline: post.title,
     description: post.excerpt,
     url: `${BASE_URL}/blog/${post.slug}`,
-    datePublished: post.date,
+    datePublished: post.isoDate,
+    dateModified: post.isoDate,
+    author: {
+      "@type": "Organization",
+      name: "Explore Niagara",
+      url: BASE_URL,
+    },
+    image: `${BASE_URL}/opengraph-image`,
     publisher: {
       "@type": "Organization",
       name: "Explore Niagara",
@@ -151,5 +160,20 @@ export function blogPostJsonLd(post: {
         url: `${BASE_URL}/logo.webp`,
       },
     },
+  };
+}
+
+export function breadcrumbJsonLd(
+  items: { name: string; url: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }

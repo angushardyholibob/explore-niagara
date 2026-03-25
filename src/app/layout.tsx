@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { websiteJsonLd, organizationJsonLd } from "@/lib/seo/json-ld";
 
 const poppins = Poppins({
@@ -43,10 +44,10 @@ export const metadata: Metadata = {
       "Explore the best tours and attractions Niagara Falls has to offer. Book Maid of the Mist, Cave of the Winds, Jet Boats and more.",
     images: [
       {
-        url: `${BASE_URL}/logo.webp`,
-        width: 200,
-        height: 50,
-        alt: "Explore Niagara",
+        url: `${BASE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Explore Niagara — Best Tours & Attractions in Niagara Falls",
       },
     ],
   },
@@ -92,8 +93,9 @@ export default function RootLayout({
             __html: JSON.stringify(organizationJsonLd()),
           }}
         />
+        <AnalyticsTracker />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

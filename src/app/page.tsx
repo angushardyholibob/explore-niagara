@@ -3,7 +3,7 @@ import FeaturedTours from "@/components/FeaturedTours";
 import USPSection from "@/components/USPSection";
 import Collections from "@/components/Collections";
 import AboutSection from "@/components/AboutSection";
-import InstagramSection from "@/components/InstagramSection";
+import WhyBookSection from "@/components/InstagramSection";
 import Newsletter from "@/components/Newsletter";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
       <Collections />
       <AboutSection />
       <Newsletter />
-      <InstagramSection />
+      <WhyBookSection />
     </>
   );
 }

@@ -199,11 +199,15 @@ export default function DateStep({ productId, onSelect }: DateStepProps) {
             const isPast = dateObj < today;
 
             if (avail && !isPast) {
+              const dateLabel = new Date(year, month, day).toLocaleDateString("en-US", {
+                weekday: "long", month: "long", day: "numeric",
+              });
               return (
                 <button
                   key={day}
                   onClick={() => onSelect(avail.id)}
-                  className="aspect-square flex flex-col items-center justify-center rounded-xl text-sm hover:bg-primary hover:text-white transition-colors group border border-primary/20 bg-primary/5"
+                  className="min-h-[44px] min-w-[44px] aspect-square flex flex-col items-center justify-center rounded-xl text-sm hover:bg-primary hover:text-white transition-colors group border border-primary/20 bg-primary/5"
+                  aria-label={`${dateLabel}, ${avail.price}`}
                 >
                   <span className="font-medium">{day}</span>
                   <span className="text-[10px] text-primary/70 group-hover:text-white/80 truncate max-w-full px-1">
@@ -216,9 +220,10 @@ export default function DateStep({ productId, onSelect }: DateStepProps) {
             return (
               <div
                 key={day}
-                className={`aspect-square flex items-center justify-center rounded-xl text-sm ${
+                className={`min-h-[44px] min-w-[44px] aspect-square flex items-center justify-center rounded-xl text-sm ${
                   isPast ? "text-gray-200" : "text-gray-400"
                 }`}
+                aria-disabled={isPast || !avail}
               >
                 {day}
               </div>

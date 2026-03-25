@@ -97,7 +97,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links + Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
               Quick Links
@@ -126,6 +126,20 @@ export default function Footer() {
                 >
                   Privacy Policy
                 </Link>
+              </li>
+            </ul>
+
+            <h3 className="text-sm font-semibold uppercase tracking-wider mt-8 mb-4">
+              Contact
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="mailto:info@exploreniagara.com"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  info@exploreniagara.com
+                </a>
               </li>
             </ul>
           </div>

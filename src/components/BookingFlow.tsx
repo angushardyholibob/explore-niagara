@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -43,6 +43,53 @@ const STEP_ORDER: BookingStep[] = [
   "confirmation",
 ];
 
+// The progress bar steps (user-visible — excludes "options" which auto-skips if no options)
+const VISIBLE_STEPS: { key: BookingStep; label: string }[] = [
+  { key: "date", label: "Date" },
+  { key: "pricing", label: "Guests" },
+  { key: "questions", label: "Details" },
+  { key: "payment", label: "Payment" },
+];
+
+interface BookingState {
+  step: BookingStep;
+  availabilityId: string | null;
+  bookingId: string | null;
+  paymentRequired: boolean;
+  productId: string;
+}
+
+function getStorageKey(productId: string) {
+  return `booking_${productId}`;
+}
+
+function saveBookingState(productId: string, state: Partial<BookingState>) {
+  try {
+    const existing = loadBookingState(productId);
+    const merged = { ...existing, ...state, productId };
+    sessionStorage.setItem(getStorageKey(productId), JSON.stringify(merged));
+  } catch { /* SSR or storage unavailable */ }
+}
+
+function loadBookingState(productId: string): BookingState | null {
+  try {
+    const raw = sessionStorage.getItem(getStorageKey(productId));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as BookingState;
+    // Only restore if it's the same product
+    if (parsed.productId !== productId) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function clearBookingState(productId: string) {
+  try {
+    sessionStorage.removeItem(getStorageKey(productId));
+  } catch { /* ignore */ }
+}
+
 export default function BookingFlow({
   productId,
   productName,
@@ -57,13 +104,54 @@ export default function BookingFlow({
     state: string;
     voucherUrl?: string;
   } | null>(null);
+  const [restored, setRestored] = useState(false);
+
+  // Restore booking state on mount
+  useEffect(() => {
+    const saved = loadBookingState(productId);
+    if (saved && saved.step !== "confirmation") {
+      setStep(saved.step);
+      setAvailabilityId(saved.availabilityId);
+      setBookingId(saved.bookingId);
+      setPaymentRequired(saved.paymentRequired);
+    }
+    setRestored(true);
+  }, [productId]);
+
+  // Persist state on changes
+  const persistState = useCallback(
+    (updates: Partial<BookingState>) => {
+      saveBookingState(productId, {
+        step,
+        availabilityId,
+        bookingId,
+        paymentRequired,
+        ...updates,
+      });
+    },
+    [productId, step, availabilityId, bookingId, paymentRequired]
+  );
+
+  function goToStep(newStep: BookingStep, updates?: Partial<BookingState>) {
+    setStep(newStep);
+    persistState({ step: newStep, ...updates });
+  }
 
   const currentIndex = STEP_ORDER.indexOf(step);
 
   function goBack() {
     const prev = STEP_ORDER[currentIndex - 1];
-    if (prev) setStep(prev);
+    if (prev) goToStep(prev);
   }
+
+  // Find which visible step we're on (for the progress bar)
+  const visibleStepIndex = VISIBLE_STEPS.findIndex((s) => {
+    if (step === "options") return s.key === "date"; // Options groups with date
+    return s.key === step;
+  });
+
+  // Don't render until we've checked sessionStorage
+  if (!restored) return null;
 
   return (
     <div>
@@ -100,24 +188,33 @@ export default function BookingFlow({
         </div>
       </div>
 
-      {/* Progress bar */}
+      {/* Progress bar — shows all steps including payment */}
       {step !== "confirmation" && (
-        <div className="mb-8">
-          <div className="flex gap-1.5">
-            {STEP_ORDER.slice(0, -1).map((s, i) => (
-              <div
-                key={s}
-                className={`h-1.5 flex-1 rounded-full transition-colors ${
-                  i <= currentIndex ? "bg-primary" : "bg-gray-200"
-                }`}
-              />
+        <nav className="mb-8" aria-label="Booking progress">
+          <div className="flex gap-1">
+            {VISIBLE_STEPS.map((s, i) => (
+              <div key={s.key} className="flex-1">
+                <div
+                  className={`h-1.5 rounded-full transition-colors ${
+                    i <= visibleStepIndex ? "bg-primary" : "bg-gray-200"
+                  }`}
+                />
+                <span
+                  className={`block text-[10px] mt-1.5 text-center font-medium ${
+                    i <= visibleStepIndex ? "text-primary" : "text-gray-400"
+                  }`}
+                  aria-current={i === visibleStepIndex ? "step" : undefined}
+                >
+                  {s.label}
+                </span>
+              </div>
             ))}
           </div>
           <div className="flex justify-between mt-2">
-            <span className="text-xs text-gray-400">
-              Step {currentIndex + 1} of {STEP_ORDER.length - 1}
+            <span className="text-xs text-gray-400" aria-live="polite">
+              Step {visibleStepIndex + 1} of {VISIBLE_STEPS.length}
             </span>
-            {currentIndex > 0 && (
+            {currentIndex > 0 && step !== "payment" && (
               <button
                 onClick={goBack}
                 className="text-xs text-primary hover:underline"
@@ -126,7 +223,7 @@ export default function BookingFlow({
               </button>
             )}
           </div>
-        </div>
+        </nav>
       )}
 
       {/* Steps */}
@@ -136,7 +233,7 @@ export default function BookingFlow({
             productId={productId}
             onSelect={(id) => {
               setAvailabilityId(id);
-              setStep("options");
+              goToStep("options", { availabilityId: id });
             }}
           />
         )}
@@ -144,7 +241,7 @@ export default function BookingFlow({
         {step === "options" && availabilityId && (
           <OptionsStep
             availabilityId={availabilityId}
-            onComplete={() => setStep("pricing")}
+            onComplete={() => goToStep("pricing")}
           />
         )}
 
@@ -154,7 +251,7 @@ export default function BookingFlow({
             onComplete={(bId, payReq) => {
               setBookingId(bId);
               setPaymentRequired(payReq);
-              setStep("questions");
+              goToStep("questions", { bookingId: bId, paymentRequired: payReq });
             }}
           />
         )}
@@ -163,9 +260,10 @@ export default function BookingFlow({
           <QuestionsStep
             bookingId={bookingId}
             onComplete={() => {
-              setStep(paymentRequired ? "payment" : "confirmation");
+              const nextStep = paymentRequired ? "payment" : "confirmation";
+              goToStep(nextStep);
               if (!paymentRequired) {
-                // Commit directly if no payment needed
+                clearBookingState(productId);
                 import("@/lib/holibob/client-api").then(({ commitBooking }) =>
                   commitBooking(bookingId).then(setConfirmationData)
                 );
@@ -178,6 +276,7 @@ export default function BookingFlow({
           <PaymentStep
             bookingId={bookingId}
             onComplete={(data) => {
+              clearBookingState(productId);
               setConfirmationData(data);
               setStep("confirmation");
             }}

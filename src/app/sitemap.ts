@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { productDiscovery } from "@/lib/holibob/api";
+import { BLOG_POSTS } from "@/lib/blog/posts";
 
 const BASE_URL = "https://explore-niagara.com";
 
@@ -81,5 +82,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Failed to fetch products for sitemap:", error);
   }
 
-  return [...staticRoutes, ...collectionRoutes, ...tourRoutes];
+  // Blog post routes
+  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.isoDate),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...collectionRoutes, ...blogRoutes, ...tourRoutes];
 }

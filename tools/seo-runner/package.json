@@ -1,0 +1,23 @@
+{
+  "name": "@explore/seo-runner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audit": "tsx src/index.ts audit",
+    "run": "tsx src/index.ts run",
+    "history": "tsx src/index.ts history"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "cheerio": "^1.0.0",
+    "commander": "^13.1.0",
+    "chalk": "^5.4.1",
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0"
+  }
+}

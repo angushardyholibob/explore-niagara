@@ -236,17 +236,20 @@ function QuestionField({
 }) {
   const format = question.dataFormat?.toUpperCase() || "";
 
+  const selectId = `question-${question.id}`;
+
   // Dropdown for questions with available options
   if (question.availableOptions && question.availableOptions.length > 0) {
     return (
       <div>
-        <label className="block text-sm font-medium text-dark mb-1.5">
+        <label htmlFor={selectId} className="block text-sm font-medium text-dark mb-1.5">
           {question.label}
           {question.isRequired && (
             <span className="text-red-400 ml-0.5">*</span>
           )}
         </label>
         <select
+          id={selectId}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-primary text-sm bg-white"
@@ -263,27 +266,51 @@ function QuestionField({
     );
   }
 
-  // Determine input type
+  // Determine input type and helper text
   let inputType = "text";
-  if (format === "EMAIL") inputType = "email";
-  else if (format === "PHONE" || format === "PHONE_NUMBER") inputType = "tel";
+  let placeholder = "";
+  let helperText = "";
+
+  if (format === "EMAIL") {
+    inputType = "email";
+    placeholder = "name@example.com";
+  } else if (format === "PHONE" || format === "PHONE_NUMBER") {
+    inputType = "tel";
+    placeholder = "+1 555 123 4567";
+    helperText = "Include country code (e.g., +1 for US/Canada)";
+  } else if (format === "GIVEN_NAME" || question.type?.toUpperCase() === "NAME_GIVEN") {
+    placeholder = "First name";
+  } else if (format === "FAMILY_NAME" || question.type?.toUpperCase() === "NAME_FAMILY") {
+    placeholder = "Last name / surname";
+  } else if (question.dataType === "DATE") {
+    inputType = "date";
+  }
+
+  const inputId = `question-${question.id}`;
 
   return (
     <div>
-      <label className="block text-sm font-medium text-dark mb-1.5">
+      <label htmlFor={inputId} className="block text-sm font-medium text-dark mb-1.5">
         {question.label}
         {question.isRequired && (
           <span className="text-red-400 ml-0.5">*</span>
         )}
       </label>
       <input
+        id={inputId}
         type={inputType}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-primary text-sm"
-        placeholder={question.label}
+        placeholder={placeholder || question.label}
         required={question.isRequired}
+        aria-describedby={helperText ? `${inputId}-hint` : undefined}
       />
+      {helperText && (
+        <p id={`${inputId}-hint`} className="text-xs text-gray-400 mt-1">
+          {helperText}
+        </p>
+      )}
     </div>
   );
 }

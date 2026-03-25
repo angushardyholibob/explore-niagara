@@ -1,6 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { getProduct } from "@/lib/holibob/api";
-import { tourJsonLd, tourProductJsonLd } from "@/lib/seo/json-ld";
+import { tourJsonLd, tourProductJsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import {
   Sparkles,
   Calendar,
 } from "lucide-react";
+import ShareButton from "@/components/ShareButton";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -119,7 +120,7 @@ export default async function TourDetailPage({
   const duration = parseDuration(product.maxDuration);
   const images = product.imageList || [];
   const heroImage = images[0]?.url;
-  const thumbnailImages = images.slice(1, 5);
+  const thumbnailImages = images.slice(1);
   const contentSections = [...(product.contentList || [])].sort(
     (a, b) => a.ordinalPosition - b.ordinalPosition
   );
@@ -139,8 +140,20 @@ export default async function TourDetailPage({
           __html: JSON.stringify(tourProductJsonLd(product)),
         }}
       />
-      {/* Back Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", url: "https://explore-niagara.com" },
+              { name: "Tours", url: "https://explore-niagara.com/tours" },
+              { name: product.name, url: `https://explore-niagara.com/tours/${id}` },
+            ])
+          ),
+        }}
+      />
+      {/* Back Navigation + Share */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 flex items-center justify-between">
         <Link
           href="/tours"
           className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors"
@@ -148,6 +161,10 @@ export default async function TourDetailPage({
           <ChevronLeft className="w-4 h-4" />
           Back to all tours
         </Link>
+        <ShareButton
+          title={product.name}
+          url={`https://explore-niagara.com/tours/${id}`}
+        />
       </div>
 
       {/* Image Gallery */}
@@ -175,37 +192,45 @@ export default async function TourDetailPage({
           {/* Thumbnail Grid */}
           {thumbnailImages.length > 0 && (
             <div className="hidden md:grid grid-rows-2 gap-3">
-              {thumbnailImages.slice(0, 2).map((img) => (
+              {thumbnailImages.slice(0, 2).map((img, i) => (
                 <div
                   key={img.id}
                   className="relative bg-gradient-to-br from-primary/20 via-primary/10 to-light-blue"
                 >
                   <Image
                     src={img.url}
-                    alt={product.name}
+                    alt={`${product.name} - Photo ${i + 2}`}
                     fill
                     className="object-cover"
                     sizes="25vw"
                   />
+                  {/* Show remaining count on last thumbnail */}
+                  {i === 1 && thumbnailImages.length > 2 && (
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="text-white font-semibold text-lg">
+                        +{thumbnailImages.length - 2} more
+                      </span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           )}
         </div>
-        {/* Mobile thumbnail strip */}
+        {/* Scrollable thumbnail strip (all remaining images) */}
         {thumbnailImages.length > 0 && (
-          <div className="flex md:hidden gap-2 mt-2 overflow-x-auto pb-2">
-            {thumbnailImages.map((img) => (
+          <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
+            {thumbnailImages.map((img, i) => (
               <div
                 key={img.id}
-                className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-light-blue"
+                className="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-light-blue"
               >
                 <Image
                   src={img.url}
-                  alt={product.name}
+                  alt={`${product.name} - Photo ${i + 2}`}
                   fill
                   className="object-cover"
-                  sizes="80px"
+                  sizes="112px"
                 />
               </div>
             ))}
