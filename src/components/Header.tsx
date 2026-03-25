@@ -121,6 +121,12 @@ export default function Header() {
             </div>
 
             <Link
+              href="/guide"
+              className="text-sm font-medium text-dark hover:text-primary transition-colors"
+            >
+              Guide
+            </Link>
+            <Link
               href="/blog"
               className="text-sm font-medium text-dark hover:text-primary transition-colors"
             >
@@ -219,6 +225,13 @@ export default function Header() {
                 </div>
               )}
             </div>
+            <Link
+              href="/guide"
+              className="block text-sm font-medium text-dark py-3"
+              onClick={() => setMobileOpen(false)}
+            >
+              Niagara Guide
+            </Link>
             <Link
               href="/blog"
               className="block text-sm font-medium text-dark py-3"

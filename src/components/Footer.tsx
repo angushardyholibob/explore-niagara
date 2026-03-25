@@ -105,6 +105,14 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
+                  href="/guide"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Niagara Falls Guide
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/blog"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
