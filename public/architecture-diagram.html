@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore.com — Architecture Diagram</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; padding: 40px; min-height: 100vh; }
+  h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 8px; color: #fff; }
+  .subtitle { text-align: center; color: #94a3b8; margin-bottom: 48px; font-size: 14px; }
+
+  .diagram { max-width: 1200px; margin: 0 auto; }
+
+  /* Section headers */
+  .section-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+    color: #64748b; margin-bottom: 16px; padding-left: 4px;
+  }
+
+  /* Boxes */
+  .box {
+    border-radius: 12px; padding: 20px; position: relative;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .box-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .box-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+  .box-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; display: inline-block; }
+
+  .bg-blue { background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%); }
+  .bg-green { background: linear-gradient(135deg, #1a3d2e 0%, #1e293b 100%); }
+  .bg-purple { background: linear-gradient(135deg, #2d1f4e 0%, #1e293b 100%); }
+  .bg-orange { background: linear-gradient(135deg, #3d2b1a 0%, #1e293b 100%); }
+  .bg-dark { background: #1e293b; }
+
+  .tag-free { background: #065f46; color: #6ee7b7; }
+  .tag-paid { background: #7c2d12; color: #fed7aa; }
+  .tag-ai { background: #4c1d95; color: #c4b5fd; }
+  .tag-built { background: #1e40af; color: #93c5fd; }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+
+  /* The main SEO loop */
+  .loop-container {
+    background: linear-gradient(135deg, #0c1929 0%, #1a1033 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .loop-label {
+    position: absolute; top: -12px; left: 24px;
+    background: #3b82f6; color: white; font-size: 11px; font-weight: 700;
+    padding: 4px 16px; border-radius: 6px; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* Arrows */
+  .arrow-row { display: flex; align-items: center; justify-content: center; padding: 8px 0; }
+  .arrow-down { color: #3b82f6; font-size: 24px; text-align: center; padding: 4px 0; }
+  .arrow-right { color: #3b82f6; font-size: 18px; padding: 0 8px; }
+  .arrow-loop {
+    position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+    width: 30px; height: 200px; border: 2px solid #3b82f6; border-left: none;
+    border-radius: 0 20px 20px 0;
+  }
+  .arrow-loop::after {
+    content: ''; position: absolute; bottom: -2px; left: -8px;
+    border: 6px solid transparent; border-top-color: #3b82f6;
+  }
+
+  /* Flow connector */
+  .connector {
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px 0;
+  }
+  .connector-line {
+    width: 2px; height: 32px; background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  }
+  .connector-label {
+    font-size: 10px; color: #64748b; margin-left: 8px; font-weight: 600;
+  }
+
+  /* Step number */
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-blue { background: #1d4ed8; color: white; }
+  .step-green { background: #059669; color: white; }
+  .step-purple { background: #7c3aed; color: white; }
+  .step-orange { background: #d97706; color: white; }
+  .step-red { background: #dc2626; color: white; }
+
+  /* Mini items */
+  .mini-item {
+    background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 12px;
+    font-size: 11px; border: 1px solid rgba(255,255,255,0.06);
+  }
+  .mini-item .label { font-weight: 600; color: #e2e8f0; margin-bottom: 2px; }
+  .mini-item .detail { color: #64748b; font-size: 10px; }
+
+  /* Sections */
+  .section { margin-bottom: 40px; }
+
+  /* Data flow */
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
+    background: rgba(255,255,255,0.03); border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .flow-row { display: flex; gap: 12px; align-items: stretch; }
+  .flow-arrow { display: flex; align-items: center; color: #3b82f6; font-size: 20px; padding: 0 4px; flex-shrink: 0; }
+
+  /* Outer system boxes */
+  .system-row { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 16px; align-items: start; }
+
+  .legend { display: flex; gap: 16px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #94a3b8; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>Explore-[Destination].com Architecture</h1>
+<p class="subtitle">Multi-site SEO automation platform — automated audit, AI improvement, deploy, measure, repeat</p>
+
+<div class="diagram">
+
+  <!-- ════════ SECTION 1: The SEO Loop ════════ -->
+  <div class="section">
+    <div class="section-title">SEO Automation Engine — tools/seo-runner/</div>
+
+    <div class="loop-container">
+      <div class="loop-label">Continuous Loop</div>
+
+      <div class="flow-row" style="margin-top: 8px;">
+
+        <!-- Step 1: Audit -->
+        <div class="flow-step" style="flex: 1;">
+          <div class="step-num step-blue">1</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">AUDIT</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Scan all 15 pages</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="mini-item">
+                <div class="label">HTML Audit <span class="box-tag tag-free" style="margin-left: 4px;">Free</span></div>
+                <div class="detail">cheerio — titles, H1s, alt text, links, word count</div>
+              </div>
+              <div class="mini-item">
+                <div class="label">PageSpeed Insights <span class="box-tag tag-free" style="margin-left: 4px;">Free</span></div>
+                <div class="detail">Google API — Lighthouse scores, Core Web Vitals</div>
+              </div>
+              <div class="mini-item">
+                <div class="label">Search Console <span class="box-tag tag-free" style="margin-left: 4px;">Free</span></div>
+                <div class="detail">Real impressions, clicks, CTR, position</div>
+              </div>
+              <div class="mini-item" style="border: 1px dashed rgba(255,255,255,0.15);">
+                <div class="label" style="color: #94a3b8;">SEMrush API <span class="box-tag tag-paid" style="margin-left: 4px;">Phase 2</span></div>
+                <div class="detail">Keyword rankings, competitor analysis</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">&#10132;</div>
+
+        <!-- Step 2: Analyze -->
+        <div class="flow-step" style="flex: 1;">
+          <div class="step-num step-purple">2</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">ANALYZE <span class="box-tag tag-ai">AI</span></div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Claude identifies top 5 improvements</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="mini-item">
+                <div class="label">Input</div>
+                <div class="detail">Audit JSON + source code + score history</div>
+              </div>
+              <div class="mini-item">
+                <div class="label">Model</div>
+                <div class="detail">Sonnet 4 (analysis) / Opus 4 (content gen)</div>
+              </div>
+              <div class="mini-item">
+                <div class="label">Output</div>
+                <div class="detail">JSON array of ImprovementTask objects with exact before/after code</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">&#10132;</div>
+
+        <!-- Step 3: Improve -->
+        <div class="flow-step" style="flex: 1;">
+          <div class="step-num step-green">3</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">IMPROVE</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Apply changes to source files</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="mini-item"><div class="label">Meta Tags</div><div class="detail">Titles, descriptions, OG tags</div></div>
+              <div class="mini-item"><div class="label">Content</div><div class="detail">Blog posts, internal links</div></div>
+              <div class="mini-item"><div class="label">Structured Data</div><div class="detail">JSON-LD schemas, breadcrumbs</div></div>
+              <div class="mini-item"><div class="label">Technical</div><div class="detail">Alt text, headings, canonicals</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">&#10132;</div>
+
+        <!-- Step 4: Apply -->
+        <div class="flow-step" style="flex: 0.8;">
+          <div class="step-num step-orange">4</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">APPLY</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Create PR for review</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="mini-item"><div class="label">Git Branch</div><div class="detail">seo/iteration-N</div></div>
+              <div class="mini-item"><div class="label">Pull Request</div><div class="detail">Before/after scores in description</div></div>
+              <div class="mini-item"><div class="label">Human Review</div><div class="detail">Merge to deploy</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-arrow">&#10132;</div>
+
+        <!-- Step 5: Measure -->
+        <div class="flow-step" style="flex: 0.8;">
+          <div class="step-num step-red">5</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">MEASURE</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">Re-audit, compare, track</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div class="mini-item"><div class="label">Compare</div><div class="detail">Before vs after scores</div></div>
+              <div class="mini-item"><div class="label">History</div><div class="detail">JSON in history/ dir</div></div>
+              <div class="mini-item"><div class="label">Circuit Breaker</div><div class="detail">Revert if score drops &gt;5pts</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Loop back arrow -->
+      <div style="text-align: center; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;">
+        <div style="height: 1px; flex: 1; background: linear-gradient(to right, transparent, #3b82f6);"></div>
+        <div style="font-size: 11px; color: #3b82f6; font-weight: 700; white-space: nowrap;">
+          &#8634; LOOP until composite score &ge; 95 &nbsp;|&nbsp; plateau for 3 iterations &nbsp;|&nbsp; max 20 iterations
+        </div>
+        <div style="height: 1px; flex: 1; background: linear-gradient(to left, transparent, #3b82f6);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION 2: Current Score ════════ -->
+  <div class="section">
+    <div class="section-title">Current Baseline — 83/100 composite</div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center; border-color: #059669;">
+        <div style="font-size: 24px; font-weight: 800; color: #34d399;">93</div>
+        <div class="detail">Homepage</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center;">
+        <div style="font-size: 24px; font-weight: 800; color: #fbbf24;">85</div>
+        <div class="detail">Tours</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center;">
+        <div style="font-size: 24px; font-weight: 800; color: #fbbf24;">88</div>
+        <div class="detail">Blog Index</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center; border-color: #dc2626;">
+        <div style="font-size: 24px; font-weight: 800; color: #f87171;">74</div>
+        <div class="detail">Blog Posts (avg)</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center;">
+        <div style="font-size: 24px; font-weight: 800; color: #fbbf24;">88</div>
+        <div class="detail">Collections (avg)</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center;">
+        <div style="font-size: 24px; font-weight: 800; color: #f87171;">13</div>
+        <div class="detail" style="color: #f87171;">Critical Issues</div>
+      </div>
+      <div class="mini-item" style="flex: 1; min-width: 100px; text-align: center;">
+        <div style="font-size: 24px; font-weight: 800; color: #fbbf24;">37</div>
+        <div class="detail" style="color: #fbbf24;">Warnings</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SECTION 3: Multi-Site Architecture ════════ -->
+  <div class="section">
+    <div class="section-title">Multi-Site Platform Architecture</div>
+
+    <div class="system-row">
+
+      <!-- Left: Site Factory -->
+      <div class="box bg-orange">
+        <div class="box-title">
+          <svg width="18" height="18" fill="none" stroke="#f59e0b" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Site Factory
+        </div>
+        <div class="box-desc" style="margin-bottom: 12px;">tools/site-factory/ CLI</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="mini-item"><div class="label">1. Input</div><div class="detail">Destination name + location</div></div>
+          <div class="mini-item"><div class="label">2. Generate</div><div class="detail">AI creates content, blog posts, SEO meta</div></div>
+          <div class="mini-item"><div class="label">3. Scaffold</div><div class="detail">Copy template app + inject config</div></div>
+          <div class="mini-item"><div class="label">4. Domain</div><div class="detail">Cloudflare Registrar API</div></div>
+          <div class="mini-item"><div class="label">5. Deploy</div><div class="detail">Cloudflare Pages API</div></div>
+          <div class="mini-item"><div class="label">6. SEO Setup</div><div class="detail">Search Console + GA4</div></div>
+        </div>
+      </div>
+
+      <!-- Center: Monorepo -->
+      <div class="box" style="background: linear-gradient(135deg, #111827 0%, #1e293b 100%); border: 2px solid rgba(255,255,255,0.1);">
+        <div class="box-title" style="font-size: 16px; margin-bottom: 16px;">
+          <svg width="20" height="20" fill="none" stroke="#60a5fa" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+          Turborepo Monorepo
+        </div>
+
+        <!-- Packages row -->
+        <div style="margin-bottom: 12px;">
+          <div style="font-size: 10px; color: #64748b; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Shared Packages</div>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+            <div class="mini-item" style="text-align: center; padding: 8px 4px;">
+              <div class="label" style="font-size: 11px;">ui/</div>
+              <div class="detail">Components</div>
+            </div>
+            <div class="mini-item" style="text-align: center; padding: 8px 4px;">
+              <div class="label" style="font-size: 11px;">holibob/</div>
+              <div class="detail">API Client</div>
+            </div>
+            <div class="mini-item" style="text-align: center; padding: 8px 4px;">
+              <div class="label" style="font-size: 11px;">config/</div>
+              <div class="detail">Destinations</div>
+            </div>
+            <div class="mini-item" style="text-align: center; padding: 8px 4px;">
+              <div class="label" style="font-size: 11px;">seo/</div>
+              <div class="detail">JSON-LD, Meta</div>
+            </div>
+            <div class="mini-item" style="text-align: center; padding: 8px 4px;">
+              <div class="label" style="font-size: 11px;">analytics/</div>
+              <div class="detail">GA4, GSC</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apps row -->
+        <div style="margin-bottom: 12px;">
+          <div style="font-size: 10px; color: #64748b; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Destination Sites (apps/)</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <div class="mini-item" style="border-color: #3b82f6; flex: 0 0 auto; padding: 6px 12px;">
+              <div class="label" style="color: #60a5fa;">niagara/ <span class="box-tag tag-built" style="font-size: 9px;">Live</span></div>
+            </div>
+            <div class="mini-item" style="flex: 0 0 auto; padding: 6px 12px; border-style: dashed;">
+              <div class="label" style="color: #94a3b8;">paris/</div>
+            </div>
+            <div class="mini-item" style="flex: 0 0 auto; padding: 6px 12px; border-style: dashed;">
+              <div class="label" style="color: #94a3b8;">rome/</div>
+            </div>
+            <div class="mini-item" style="flex: 0 0 auto; padding: 6px 12px; border-style: dashed;">
+              <div class="label" style="color: #94a3b8;">london/</div>
+            </div>
+            <div class="mini-item" style="flex: 0 0 auto; padding: 6px 12px; border-style: dashed;">
+              <div class="label" style="color: #64748b;">... 50+ sites</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools row -->
+        <div>
+          <div style="font-size: 10px; color: #64748b; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">Tools</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            <div class="mini-item" style="border-color: #8b5cf6;">
+              <div class="label" style="color: #a78bfa;">seo-runner/ <span class="box-tag tag-built" style="font-size: 9px;">Built</span></div>
+              <div class="detail">Audit + AI loop</div>
+            </div>
+            <div class="mini-item" style="border-style: dashed;">
+              <div class="label" style="color: #94a3b8;">site-factory/</div>
+              <div class="detail">Scaffold new sites</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Console -->
+      <div class="box bg-purple">
+        <div class="box-title">
+          <svg width="18" height="18" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Central Console
+        </div>
+        <div class="box-desc" style="margin-bottom: 12px;">apps/console/ — Dashboard</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div class="mini-item"><div class="label">Overview</div><div class="detail">All sites grid + traffic sparklines</div></div>
+          <div class="mini-item"><div class="label">SEO Scores</div><div class="detail">Per-site audit history + trends</div></div>
+          <div class="mini-item"><div class="label">Search Data</div><div class="detail">GSC queries, CTR, position</div></div>
+          <div class="mini-item"><div class="label">Actions</div><div class="detail">Trigger audits, redeploy, regenerate</div></div>
+          <div class="mini-item"><div class="label">Alerts</div><div class="detail">Traffic drops, score drops, failures</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════ SECTION 4: Infrastructure ════════ -->
+  <div class="section">
+    <div class="section-title">Infrastructure & External Services</div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+
+      <div class="box bg-blue" style="padding: 16px;">
+        <div class="box-title" style="font-size: 13px;">
+          <svg width="16" height="16" fill="#f59e0b" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Cloudflare
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+          <div style="font-size: 11px; color: #94a3b8;">Pages (hosting)</div>
+          <div style="font-size: 11px; color: #94a3b8;">DNS + SSL</div>
+          <div style="font-size: 11px; color: #94a3b8;">Registrar (domains)</div>
+          <div style="font-size: 11px; color: #94a3b8;">D1 (database)</div>
+        </div>
+      </div>
+
+      <div class="box bg-green" style="padding: 16px;">
+        <div class="box-title" style="font-size: 13px;">
+          <svg width="16" height="16" fill="#34d399" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          Holibob API
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+          <div style="font-size: 11px; color: #94a3b8;">Tour discovery</div>
+          <div style="font-size: 11px; color: #94a3b8;">Booking flow</div>
+          <div style="font-size: 11px; color: #94a3b8;">Availability + pricing</div>
+          <div style="font-size: 11px; color: #94a3b8;">Multi-destination</div>
+        </div>
+      </div>
+
+      <div class="box bg-purple" style="padding: 16px;">
+        <div class="box-title" style="font-size: 13px;">
+          <svg width="16" height="16" fill="#a78bfa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+          Claude API
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+          <div style="font-size: 11px; color: #94a3b8;">SEO analysis</div>
+          <div style="font-size: 11px; color: #94a3b8;">Content generation</div>
+          <div style="font-size: 11px; color: #94a3b8;">Meta optimization</div>
+          <div style="font-size: 11px; color: #94a3b8;">~$50-100/mo</div>
+        </div>
+      </div>
+
+      <div class="box bg-dark" style="padding: 16px;">
+        <div class="box-title" style="font-size: 13px;">
+          <svg width="16" height="16" fill="#60a5fa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+          Google APIs
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+          <div style="font-size: 11px; color: #94a3b8;">Search Console (free)</div>
+          <div style="font-size: 11px; color: #94a3b8;">PageSpeed Insights (free)</div>
+          <div style="font-size: 11px; color: #94a3b8;">Analytics 4 (free)</div>
+          <div style="font-size: 11px; color: #94a3b8;">Stripe (payments)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: #059669;"></div> Built & working</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div> In progress</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #64748b; border: 1px dashed #94a3b8;"></div> Planned</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #065f46;"></div> Free tool</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #7c2d12;"></div> Paid (Phase 2)</div>
+    <div class="legend-item"><div class="legend-dot" style="background: #4c1d95;"></div> AI-powered</div>
+  </div>
+
+</div>
+
+</body>
+</html>

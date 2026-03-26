@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getDestinationSync } from "@/config/destination";
 import {
   TrendingUp,
   TrendingDown,
@@ -130,7 +131,7 @@ export default function AnalyticsDashboard() {
             </div>
             <div>
               <h1 className="text-lg font-bold">Traffic Analytics</h1>
-              <p className="text-xs text-gray-400">explore-niagara.com</p>
+              <p className="text-xs text-gray-400">{getDestinationSync().domain}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">

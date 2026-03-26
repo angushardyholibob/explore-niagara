@@ -2,46 +2,20 @@ import type { Metadata } from "next";
 import { productDiscovery, transformProductToTour } from "@/lib/holibob/api";
 import { collectionJsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { defaultOgImage } from "@/lib/seo/metadata";
+import { getDestinationSync } from "@/config/destination";
 import TourCard from "@/components/TourCard";
 
-const COLLECTIONS: Record<
-  string,
-  {
-    title: string;
-    description: string;
-    searchTerm: string;
-  }
-> = {
-  "maid-of-the-mist": {
-    title: "Maid of the Mist",
-    description:
-      "Experience the iconic Maid of the Mist boat tour and get up close to the thundering Niagara Falls.",
-    searchTerm: "Maid of the Mist",
-  },
-  "cave-of-the-winds": {
-    title: "Cave of the Winds",
-    description:
-      "Feel the raw power of Niagara Falls from the Hurricane Deck at Cave of the Winds.",
-    searchTerm: "Cave of the Winds",
-  },
-  "jet-boats": {
-    title: "Jet Boats",
-    description:
-      "Get your adrenaline pumping with high-speed jet boat rides through the Niagara Gorge.",
-    searchTerm: "Jet Boat Niagara",
-  },
-  "experience-niagara": {
-    title: "Experience Niagara",
-    description:
-      "Multi-attraction passes and all-inclusive experiences to make the most of your visit.",
-    searchTerm: "Niagara Falls experience",
-  },
-};
+const config = getDestinationSync();
+
+const COLLECTIONS_MAP: Record<string, typeof config.collections[number]> = {};
+for (const c of config.collections) {
+  COLLECTIONS_MAP[c.slug] = c;
+}
 
 async function getCollectionTours(searchTerm: string) {
   try {
     const result = await productDiscovery({
-      where: { freeText: "Niagara Falls" },
+      where: { freeText: config.searchTerm },
       what: { freeText: searchTerm },
       count: 12,
     });
@@ -58,19 +32,19 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const collection = COLLECTIONS[slug];
+  const collection = COLLECTIONS_MAP[slug];
   if (!collection) return { title: "Collection Not Found" };
 
   return {
-    title: `${collection.title} Tours — Niagara Falls`,
+    title: `${collection.name} Tours — ${config.name}`,
     description: collection.description,
     openGraph: {
-      title: `${collection.title} Tours — Niagara Falls | Explore Niagara`,
+      title: `${collection.name} Tours — ${config.name} | ${config.brandName}`,
       description: collection.description,
       images: [defaultOgImage],
     },
     alternates: {
-      canonical: `https://explore-niagara.com/collections/${slug}`,
+      canonical: `https://${config.domain}/collections/${slug}`,
     },
   };
 }
@@ -81,7 +55,7 @@ export default async function CollectionPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const collection = COLLECTIONS[slug];
+  const collection = COLLECTIONS_MAP[slug];
 
   if (!collection) {
     return (
@@ -100,9 +74,9 @@ export default async function CollectionPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: "Home", url: "https://explore-niagara.com" },
-              { name: "Collections", url: "https://explore-niagara.com/collections" },
-              { name: collection.title, url: `https://explore-niagara.com/collections/${slug}` },
+              { name: "Home", url: `https://${config.domain}` },
+              { name: "Collections", url: `https://${config.domain}/collections` },
+              { name: collection.name, url: `https://${config.domain}/collections/${slug}` },
             ])
           ),
         }}
@@ -111,15 +85,15 @@ export default async function CollectionPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            collectionJsonLd(collection.title, collection.description, slug, tours)
+            collectionJsonLd(collection.name, collection.description, slug, tours)
           ),
         }}
       />
 
-      <section className="bg-gradient-to-br from-[#0a3d5c] via-[#0b6b96] to-[#0289c1] py-16 md:py-24">
+      <section className="bg-gradient-to-br from-[#0a3d5c] via-[#0b6b96] to-primary py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            {collection.title}
+            {collection.name}
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             {collection.description}

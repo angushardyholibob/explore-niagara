@@ -109,8 +109,10 @@ function ExperienceMarker({
 
 export default function ExperienceMap({
   experiences,
+  center: centerProp,
 }: {
   experiences: MapExperience[];
+  center?: { lat: number; lng: number };
 }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -120,8 +122,7 @@ export default function ExperienceMap({
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "";
 
-  // Center on Niagara Falls
-  const center = { lat: 43.0896, lng: -79.0849 };
+  const center = centerProp || { lat: 43.0896, lng: -79.0849 };
 
   return (
     <APIProvider apiKey={apiKey}>

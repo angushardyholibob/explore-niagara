@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { getDestinationSync } from "@/config/destination";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
@@ -20,13 +21,13 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-r from-[#0289c1] to-[#015f87]">
+    <section className="py-16 md:py-20 bg-gradient-to-r from-primary to-primary-dark">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
           Stay in the Loop
         </h2>
         <p className="text-white/75 mb-8 max-w-md mx-auto">
-          Get exclusive deals, new tour announcements, and Niagara Falls travel
+          Get exclusive deals, new tour announcements, and {getDestinationSync().name} travel
           tips delivered straight to your inbox.
         </p>
 
@@ -63,7 +64,7 @@ export default function Newsletter() {
             </div>
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#0289c1] font-semibold px-6 py-3.5 rounded-full text-sm hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-white text-primary font-semibold px-6 py-3.5 rounded-full text-sm hover:bg-gray-100 transition-colors"
             >
               Subscribe
               <Send className="w-4 h-4" />

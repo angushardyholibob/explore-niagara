@@ -1,6 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import { getProduct } from "@/lib/holibob/api";
 import { tourJsonLd, tourProductJsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { getDestinationSync } from "@/config/destination";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +17,8 @@ import {
   Calendar,
 } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
+
+const config = getDestinationSync();
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -37,17 +40,17 @@ export async function generateMetadata(
   const title = product.name;
   const description =
     product.description?.slice(0, 160) ||
-    `Book ${product.name} in Niagara Falls. ${product.guidePriceFormattedText ? `From ${product.guidePriceFormattedText}.` : ""} Instant confirmation.`;
+    `Book ${product.name} in ${config.name}. ${product.guidePriceFormattedText ? `From ${product.guidePriceFormattedText}.` : ""} Instant confirmation.`;
   const image = product.imageList?.[0]?.url;
 
   return {
     title,
     description,
     openGraph: {
-      title: `${title} | Explore Niagara`,
+      title: `${title} | ${config.brandName}`,
       description,
       type: "website",
-      url: `https://explore-niagara.com/tours/${id}`,
+      url: `https://${config.domain}/tours/${id}`,
       ...(image ? { images: [{ url: image, alt: product.name }] } : {}),
     },
     twitter: {
@@ -57,7 +60,7 @@ export async function generateMetadata(
       ...(image ? { images: [image] } : {}),
     },
     alternates: {
-      canonical: `https://explore-niagara.com/tours/${id}`,
+      canonical: `https://${config.domain}/tours/${id}`,
     },
   };
 }
@@ -145,9 +148,9 @@ export default async function TourDetailPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: "Home", url: "https://explore-niagara.com" },
-              { name: "Tours", url: "https://explore-niagara.com/tours" },
-              { name: product.name, url: `https://explore-niagara.com/tours/${id}` },
+              { name: "Home", url: `https://${config.domain}` },
+              { name: "Tours", url: `https://${config.domain}/tours` },
+              { name: product.name, url: `https://${config.domain}/tours/${id}` },
             ])
           ),
         }}
@@ -163,7 +166,7 @@ export default async function TourDetailPage({
         </Link>
         <ShareButton
           title={product.name}
-          url={`https://explore-niagara.com/tours/${id}`}
+          url={`https://${config.domain}/tours/${id}`}
         />
       </div>
 

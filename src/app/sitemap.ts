@@ -1,59 +1,25 @@
 import type { MetadataRoute } from "next";
 import { productDiscovery } from "@/lib/holibob/api";
 import { BLOG_POSTS } from "@/lib/blog/posts";
-
-const BASE_URL = "https://explore-niagara.com";
+import { getDestinationSync } from "@/config/destination";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const config = getDestinationSync();
+  const BASE_URL = `https://${config.domain}`;
+
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/tours`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/guide`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
+    { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${BASE_URL}/tours`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/guide`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE_URL}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  // Collection routes
-  const collections = [
-    "maid-of-the-mist",
-    "cave-of-the-winds",
-    "jet-boats",
-    "experience-niagara",
-  ];
-  const collectionRoutes: MetadataRoute.Sitemap = collections.map((slug) => ({
-    url: `${BASE_URL}/collections/${slug}`,
+  // Collection routes from config
+  const collectionRoutes: MetadataRoute.Sitemap = config.collections.map((c) => ({
+    url: `${BASE_URL}/collections/${c.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
@@ -62,14 +28,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic tour routes from Holibob API
   let tourRoutes: MetadataRoute.Sitemap = [];
   try {
-    // Holibob API limits to 20 per request — paginate to get all products
     const allProducts: { id: string }[] = [];
     let seenIds: string[] = [];
     let hasMore = true;
 
     while (hasMore) {
       const result = await productDiscovery({
-        where: { freeText: "Niagara Falls" },
+        where: { freeText: config.searchTerm },
         count: 20,
         seenProductIdList: seenIds,
       });

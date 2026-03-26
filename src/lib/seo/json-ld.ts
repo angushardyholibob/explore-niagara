@@ -1,47 +1,52 @@
 import type { ProductDetail, Tour } from "@/lib/holibob/types";
+import { getDestinationSync } from "@/config/destination";
 
-const BASE_URL = "https://explore-niagara.com";
+function getBase() {
+  const config = getDestinationSync();
+  return { url: `https://${config.domain}`, name: config.brandName, email: config.email };
+}
 
 export function websiteJsonLd() {
+  const { url, name } = getBase();
+  const config = getDestinationSync();
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Explore Niagara",
-    url: BASE_URL,
-    description:
-      "Explore the best tours and attractions Niagara Falls has to offer.",
+    name,
+    url,
+    description: config.seo.defaultDescription,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${BASE_URL}/tours?q={search_term_string}`,
+      target: `${url}/tours?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
 }
 
 export function organizationJsonLd() {
+  const { url, name, email } = getBase();
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Explore Niagara",
-    url: BASE_URL,
-    logo: `${BASE_URL}/logo.webp`,
-    // Add social media URLs here as they are created
-    // sameAs: ["https://instagram.com/exploreniagara", "https://youtube.com/@exploreniagara"],
+    name,
+    url,
+    logo: `${url}/logo.webp`,
     contactPoint: {
       "@type": "ContactPoint",
-      email: "info@exploreniagara.com",
+      email,
       contactType: "customer service",
     },
   };
 }
 
 export function tourJsonLd(product: ProductDetail) {
+  const { url } = getBase();
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "TouristAttraction",
     name: product.name,
     description: product.description,
-    url: `${BASE_URL}/tours/${product.id}`,
+    url: `${url}/tours/${product.id}`,
     image: product.imageList?.[0]?.url,
   };
 
@@ -74,13 +79,14 @@ export function tourJsonLd(product: ProductDetail) {
 }
 
 export function tourProductJsonLd(product: ProductDetail) {
+  const { url } = getBase();
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
     description: product.description,
     image: product.imageList?.[0]?.url,
-    url: `${BASE_URL}/tours/${product.id}`,
+    url: `${url}/tours/${product.id}`,
   };
 
   if (product.guidePrice > 0) {
@@ -89,7 +95,7 @@ export function tourProductJsonLd(product: ProductDetail) {
       price: product.guidePrice,
       priceCurrency: product.guidePriceCurrency || "USD",
       availability: "https://schema.org/InStock",
-      url: `${BASE_URL}/tours/${product.id}`,
+      url: `${url}/tours/${product.id}`,
     };
   }
 
@@ -111,12 +117,13 @@ export function collectionJsonLd(
   slug: string,
   tours: Tour[]
 ) {
+  const { url } = getBase();
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: title,
     description,
-    url: `${BASE_URL}/collections/${slug}`,
+    url: `${url}/collections/${slug}`,
     numberOfItems: tours.length,
     itemListElement: tours.map((tour, index) => ({
       "@type": "ListItem",
@@ -124,7 +131,7 @@ export function collectionJsonLd(
       item: {
         "@type": "TouristAttraction",
         name: tour.title,
-        url: `${BASE_URL}/tours/${tour.id}`,
+        url: `${url}/tours/${tour.id}`,
         ...(tour.image ? { image: tour.image } : {}),
       },
     })),
@@ -138,34 +145,26 @@ export function blogPostJsonLd(post: {
   date: string;
   isoDate: string;
 }) {
+  const { url, name } = getBase();
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-    url: `${BASE_URL}/blog/${post.slug}`,
+    url: `${url}/blog/${post.slug}`,
     datePublished: post.isoDate,
     dateModified: post.isoDate,
-    author: {
-      "@type": "Organization",
-      name: "Explore Niagara",
-      url: BASE_URL,
-    },
-    image: `${BASE_URL}/opengraph-image`,
+    author: { "@type": "Organization", name, url },
+    image: `${url}/opengraph-image`,
     publisher: {
       "@type": "Organization",
-      name: "Explore Niagara",
-      logo: {
-        "@type": "ImageObject",
-        url: `${BASE_URL}/logo.webp`,
-      },
+      name,
+      logo: { "@type": "ImageObject", url: `${url}/logo.webp` },
     },
   };
 }
 
-export function breadcrumbJsonLd(
-  items: { name: string; url: string }[]
-) {
+export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

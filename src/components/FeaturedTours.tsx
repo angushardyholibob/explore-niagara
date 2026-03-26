@@ -4,6 +4,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 import TourCard from "./TourCard";
 import type { Tour } from "@/lib/holibob/types";
+import { getDestinationSync } from "@/config/destination";
+
+const config = getDestinationSync();
 
 export default function FeaturedTours() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -29,7 +32,7 @@ export default function FeaturedTours() {
               }
             }`,
             variables: {
-              where: { freeText: "Niagara Falls" },
+              where: { freeText: config.searchTerm },
               count: 8,
             },
           }),
@@ -98,7 +101,7 @@ export default function FeaturedTours() {
               Top Tours
             </h2>
             <p className="text-gray-500 mt-2 text-sm sm:text-base">
-              Our most popular experiences in Niagara Falls
+              Our most popular experiences in {config.name}
             </p>
           </div>
           <div className="hidden sm:flex gap-2">

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { websiteJsonLd, organizationJsonLd } from "@/lib/seo/json-ld";
+import { getDestinationSync } from "@/config/destination";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -12,54 +13,41 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const BASE_URL = "https://explore-niagara.com";
+const config = getDestinationSync();
+const BASE_URL = `https://${config.domain}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Explore Niagara | Best Tours & Attractions in Niagara Falls",
-    template: "%s | Explore Niagara",
+    default: config.seo.defaultTitle,
+    template: config.seo.titleTemplate,
   },
-  description:
-    "Explore the best tours and attractions Niagara Falls has to offer. Book Maid of the Mist, Cave of the Winds, Jet Boats and more.",
-  keywords: [
-    "Niagara Falls tours",
-    "Niagara Falls attractions",
-    "Maid of the Mist",
-    "Cave of the Winds",
-    "Niagara Falls experiences",
-    "things to do in Niagara Falls",
-    "Niagara Falls tickets",
-    "Niagara Falls booking",
-  ],
-  authors: [{ name: "Explore Niagara" }],
-  creator: "Explore Niagara",
+  description: config.seo.defaultDescription,
+  keywords: config.seo.keywords,
+  authors: [{ name: config.brandName }],
+  creator: config.brandName,
   openGraph: {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    siteName: "Explore Niagara",
-    title: "Explore Niagara | Best Tours & Attractions in Niagara Falls",
-    description:
-      "Explore the best tours and attractions Niagara Falls has to offer. Book Maid of the Mist, Cave of the Winds, Jet Boats and more.",
+    siteName: config.brandName,
+    title: config.seo.defaultTitle,
+    description: config.seo.defaultDescription,
     images: [
       {
         url: `${BASE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Explore Niagara — Best Tours & Attractions in Niagara Falls",
+        alt: `${config.brandName} — ${config.seo.defaultTitle}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Explore Niagara | Best Tours & Attractions in Niagara Falls",
-    description:
-      "Explore the best tours and attractions Niagara Falls has to offer.",
+    title: config.seo.defaultTitle,
+    description: config.seo.defaultDescription,
   },
-  alternates: {
-    canonical: BASE_URL,
-  },
+  alternates: { canonical: BASE_URL },
   robots: {
     index: true,
     follow: true,
@@ -83,15 +71,11 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd()),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd()),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
         <AnalyticsTracker />
         <Header />

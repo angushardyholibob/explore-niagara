@@ -6,6 +6,9 @@ import { ChevronLeft, Clock, Calendar } from "lucide-react";
 import { BLOG_POSTS, getPostBySlug } from "@/lib/blog/posts";
 import { blogPostJsonLd, breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { defaultOgImage } from "@/lib/seo/metadata";
+import { getDestinationSync } from "@/config/destination";
+
+const config = getDestinationSync();
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.excerpt,
     openGraph: {
-      title: `${post.title} | Explore Niagara Blog`,
+      title: `${post.title} | ${config.brandName} Blog`,
       description: post.excerpt,
       type: "article",
       publishedTime: post.isoDate,
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
     },
     alternates: {
-      canonical: `https://explore-niagara.com/blog/${slug}`,
+      canonical: `https://${config.domain}/blog/${slug}`,
     },
   };
 }
@@ -60,9 +63,9 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: "Home", url: "https://explore-niagara.com" },
-              { name: "Blog", url: "https://explore-niagara.com/blog" },
-              { name: post.title, url: `https://explore-niagara.com/blog/${post.slug}` },
+              { name: "Home", url: `https://${config.domain}` },
+              { name: "Blog", url: `https://${config.domain}/blog` },
+              { name: post.title, url: `https://${config.domain}/blog/${post.slug}` },
             ])
           ),
         }}
@@ -119,7 +122,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* CTA */}
         <div className="mt-12 p-6 bg-gradient-to-br from-primary/5 to-light-blue/30 rounded-2xl border border-primary/10">
           <h3 className="text-lg font-semibold text-dark mb-2">
-            Ready to explore Niagara Falls?
+            Ready to explore {config.name}?
           </h3>
           <p className="text-gray-500 text-sm mb-4">
             Browse our hand-picked tours and book with instant confirmation.

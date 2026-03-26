@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { getDestinationSync } from "@/config/destination";
+
+const config = getDestinationSync();
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Explore Niagara's privacy policy. Learn how we collect, use, and protect your personal information.",
+    `${config.brandName}'s privacy policy. Learn how we collect, use, and protect your personal information.`,
   alternates: {
-    canonical: "https://explore-niagara.com/privacy",
+    canonical: `https://${config.domain}/privacy`,
   },
   robots: {
     index: false,
@@ -22,7 +25,7 @@ export default function PrivacyPage() {
         <div className="prose prose-gray max-w-none space-y-6 text-gray-600 leading-relaxed">
           <p>
             Your privacy is important to us. This Privacy Policy explains how
-            Explore Niagara collects, uses, and protects your personal
+            {config.brandName} collects, uses, and protects your personal
             information when you visit our website and use our services.
           </p>
 
@@ -56,7 +59,7 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold text-dark mt-8">Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy, please
-            contact us at privacy@exploreniagara.com.
+            contact us at {config.privacyEmail}.
           </p>
         </div>
       </div>

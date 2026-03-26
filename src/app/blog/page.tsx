@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
 import { defaultOgImage } from "@/lib/seo/metadata";
+import { getDestinationSync } from "@/config/destination";
 import Link from "next/link";
 import Image from "next/image";
 import { BLOG_POSTS } from "@/lib/blog/posts";
 
+const config = getDestinationSync();
+
 export const metadata: Metadata = {
   title: "Blog — Tips, Guides & Stories",
   description:
-    "Tips, guides, and stories to help you get the most out of your Niagara Falls adventure. Travel guides, seasonal tips, and insider recommendations.",
+    `Tips, guides, and stories to help you get the most out of your ${config.name} adventure. Travel guides, seasonal tips, and insider recommendations.`,
   openGraph: {
-    title: "Explore Niagara Blog — Tips, Guides & Stories",
+    title: `${config.brandName} Blog — Tips, Guides & Stories`,
     description:
-      "Tips, guides, and stories to help you plan your Niagara Falls trip.",
+      `Tips, guides, and stories to help you plan your ${config.name} trip.`,
     images: [defaultOgImage],
   },
   alternates: {
-    canonical: "https://explore-niagara.com/blog",
+    canonical: `https://${config.domain}/blog`,
   },
 };
 
@@ -28,8 +31,8 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-gray-500 max-w-2xl">
-            Tips, guides, and stories to help you get the most out of your
-            Niagara Falls adventure.
+            Tips, guides, and stories to help you get the most out of your{" "}
+            {config.name} adventure.
           </p>
         </div>
 
@@ -52,12 +55,12 @@ export default function BlogPage() {
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs font-medium text-[#0289c1] bg-[#0289c1]/10 px-3 py-1 rounded-full">
+                    <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
                       {post.category}
                     </span>
                     <span className="text-xs text-gray-400">{post.date}</span>
                   </div>
-                  <h2 className="text-lg font-semibold text-dark group-hover:text-[#0289c1] transition-colors mb-2">
+                  <h2 className="text-lg font-semibold text-dark group-hover:text-primary transition-colors mb-2">
                     {post.title}
                   </h2>
                   <p className="text-gray-500 text-sm leading-relaxed">

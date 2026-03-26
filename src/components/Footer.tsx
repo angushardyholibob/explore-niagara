@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getDestinationSync } from "@/config/destination";
 
 export default function Footer() {
+  const config = getDestinationSync();
+
   return (
     <footer className="bg-footer-bg text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -11,15 +14,14 @@ export default function Footer() {
             <Link href="/" className="flex items-center mb-4">
               <Image
                 src="/logo.webp"
-                alt="Explore Niagara"
+                alt={config.brandName}
                 width={180}
                 height={45}
                 className="h-9 w-auto brightness-0 invert"
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Discover the best tours and experiences around Niagara Falls.
-              Unforgettable adventures await.
+              {config.seo.defaultDescription}
             </p>
             <div className="flex gap-4">
               <span
@@ -59,38 +61,16 @@ export default function Footer() {
                   All Tours
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/collections/maid-of-the-mist"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Maid of the Mist
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/collections/cave-of-the-winds"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Cave of the Winds
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/collections/jet-boats"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Jet Boats
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/collections/experience-niagara"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Experience Niagara
-                </Link>
-              </li>
+              {config.collections.map((c) => (
+                <li key={c.slug}>
+                  <Link
+                    href={`/collections/${c.slug}`}
+                    className="text-gray-400 hover:text-white text-sm transition-colors"
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -105,7 +85,7 @@ export default function Footer() {
                   href="/guide"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Niagara Falls Guide
+                  {config.name} Guide
                 </Link>
               </li>
               <li>
@@ -140,10 +120,10 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="mailto:info@exploreniagara.com"
+                  href={`mailto:${config.email}`}
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  info@exploreniagara.com
+                  {config.email}
                 </a>
               </li>
             </ul>
@@ -153,7 +133,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10 text-center sm:text-left">
           <p className="text-gray-500 text-xs">
-            &copy; {new Date().getFullYear()} Explore Niagara. All rights
+            &copy; {new Date().getFullYear()} {config.brandName}. All rights
             reserved.
           </p>
         </div>

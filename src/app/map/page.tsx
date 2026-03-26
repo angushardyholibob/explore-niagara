@@ -1,34 +1,37 @@
 import type { Metadata } from "next";
 import { productDiscovery } from "@/lib/holibob/api";
+import { getDestinationSync } from "@/config/destination";
 import ExperienceMap from "@/components/ExperienceMap";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
+const config = getDestinationSync();
+
 export const metadata: Metadata = {
-  title: "Experience Map — Explore Niagara",
+  title: `Experience Map — ${config.brandName}`,
   description:
-    "See all Niagara Falls tours and experiences on an interactive map. Find activities near you and plan your visit.",
+    `See all ${config.name} tours and experiences on an interactive map. Find activities near you and plan your visit.`,
   openGraph: {
-    title: "Experience Map | Explore Niagara",
+    title: `Experience Map | ${config.brandName}`,
     description:
-      "Browse Niagara Falls tours and experiences on an interactive map.",
+      `Browse ${config.name} tours and experiences on an interactive map.`,
   },
   alternates: {
-    canonical: "https://explore-niagara.com/map",
+    canonical: `https://${config.domain}/map`,
   },
 };
 
 export default async function MapPage() {
   // Fetch up to 40 experiences in two batches (API max 20 per request)
   const first = await productDiscovery({
-    where: { freeText: "Niagara Falls" },
+    where: { freeText: config.searchTerm },
     count: 20,
   });
   const seenIds = first.products.map((p) => p.id);
   const second = await productDiscovery({
-    where: { freeText: "Niagara Falls" },
+    where: { freeText: config.searchTerm },
     count: 20,
     seenProductIdList: seenIds,
   });
@@ -62,7 +65,7 @@ export default async function MapPage() {
                 Experience Map
               </h1>
               <p className="text-sm text-gray-500">
-                Explore tours and attractions across Niagara Falls
+                Explore tours and attractions across {config.name}
               </p>
             </div>
           </div>
@@ -75,7 +78,7 @@ export default async function MapPage() {
         </div>
 
         {/* Map */}
-        <ExperienceMap experiences={experiences} />
+        <ExperienceMap experiences={experiences} center={config.mapCenter} />
 
         {/* Below map: quick links */}
         <div className="mt-8 text-center">

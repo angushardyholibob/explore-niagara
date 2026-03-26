@@ -1,12 +1,28 @@
-const BASE_URL = "https://explore-niagara.com";
+import { getDestinationSync } from "@/config/destination";
+
+export function getBaseUrl() {
+  const config = getDestinationSync();
+  return `https://${config.domain}`;
+}
 
 /**
  * Default OG image to include in all page metadata.
- * This ensures child pages inherit the OG image even when they override openGraph.
  */
+export function getDefaultOgImage() {
+  const config = getDestinationSync();
+  const BASE_URL = `https://${config.domain}`;
+  return {
+    url: `${BASE_URL}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt: `${config.brandName} — ${config.seo.defaultTitle}`,
+  };
+}
+
+// Keep a static export for backwards compat during migration
 export const defaultOgImage = {
-  url: `${BASE_URL}/opengraph-image`,
+  get url() { return getDefaultOgImage().url; },
   width: 1200,
   height: 630,
-  alt: "Explore Niagara — Best Tours & Attractions in Niagara Falls",
+  get alt() { return getDefaultOgImage().alt; },
 };

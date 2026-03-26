@@ -5,24 +5,19 @@
 import fs from "fs";
 import path from "path";
 import type { AnalyticsEvent } from "./store";
+import { getDestinationSync } from "@/config/destination";
 
 const DATA_DIR = path.join(process.cwd(), "data", "analytics");
 const EVENTS_FILE = path.join(DATA_DIR, "events.json");
+
+const config = getDestinationSync();
 
 const PAGES = [
   { path: "/", weight: 25 },
   { path: "/tours", weight: 20 },
   { path: "/blog", weight: 10 },
-  { path: "/blog/top-10-things-to-do-niagara-falls", weight: 8 },
-  { path: "/blog/maid-of-the-mist-complete-guide", weight: 6 },
-  { path: "/blog/niagara-falls-winter-guide", weight: 4 },
-  { path: "/blog/niagara-wine-trail-food-guide", weight: 3 },
-  { path: "/blog/best-time-to-visit-niagara-falls", weight: 5 },
-  { path: "/blog/niagara-falls-with-kids", weight: 4 },
-  { path: "/collections/maid-of-the-mist", weight: 6 },
-  { path: "/collections/cave-of-the-winds", weight: 5 },
-  { path: "/collections/experience-niagara", weight: 3 },
-  { path: "/collections/jet-boats", weight: 3 },
+  ...config.blogPosts.map((p, i) => ({ path: `/blog/${p.slug}`, weight: 8 - i })),
+  ...config.collections.map((c, i) => ({ path: `/collections/${c.slug}`, weight: 6 - i })),
   { path: "/about", weight: 4 },
   { path: "/map", weight: 5 },
   { path: "/tours/tour-detail-1", weight: 8 },
@@ -53,18 +48,7 @@ const USER_AGENTS = [
   { ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0", device: "desktop", weight: 3 },
 ];
 
-const SEARCH_TERMS = [
-  "niagara falls tours",
-  "maid of the mist tickets",
-  "things to do niagara falls",
-  "cave of the winds",
-  "niagara falls boat tour",
-  "niagara wine trail",
-  "niagara falls winter",
-  "niagara falls with kids",
-  "jet boat niagara",
-  "niagara falls attractions",
-];
+const SEARCH_TERMS = config.searchTerms;
 
 function weightedRandom<T extends { weight: number }>(items: T[]): T {
   const total = items.reduce((s, i) => s + i.weight, 0);

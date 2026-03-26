@@ -1,7 +1,10 @@
 import { ImageResponse } from "next/og";
+import { getDestinationSync } from "@/config/destination";
+
+const config = getDestinationSync();
 
 export const runtime = "edge";
-export const alt = "Explore Niagara — Best Tours & Attractions in Niagara Falls";
+export const alt = `${config.brandName} — Best Tours & Attractions in ${config.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -39,7 +42,7 @@ export default function Image() {
               maxWidth: "900px",
             }}
           >
-            Explore Niagara
+            {config.brandName}
           </div>
           <div
             style={{
@@ -49,7 +52,7 @@ export default function Image() {
               lineHeight: 1.4,
             }}
           >
-            The best tours & attractions in Niagara Falls
+            The best tours & attractions in {config.name}
           </div>
           <div
             style={{
@@ -61,7 +64,7 @@ export default function Image() {
               borderRadius: "50px",
             }}
           >
-            explore-niagara.com
+            {config.domain}
           </div>
         </div>
       </div>

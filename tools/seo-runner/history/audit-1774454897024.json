@@ -1,0 +1,999 @@
+{
+  "siteUrl": "http://localhost:3099",
+  "timestamp": "2026-03-25T16:08:13.741Z",
+  "pages": [
+    {
+      "url": "http://localhost:3099/",
+      "path": "/",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 90,
+        "structuredData": 97,
+        "composite": 93
+      },
+      "issues": [
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 253 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Explore Niagara | Best Tours & Attractions in Niagara Falls",
+        "titleLength": 59,
+        "description": "Explore the best tours and attractions Niagara Falls has to offer. Book Maid of the Mist, Cave of the Winds, Jet Boats and more.",
+        "descriptionLength": 128,
+        "h1Count": 1,
+        "h1Text": [
+          "Explore the best tours and attractions Niagara Falls has to offer"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 19,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization"
+        ],
+        "wordCount": 253
+      }
+    },
+    {
+      "url": "http://localhost:3099/tours",
+      "path": "/tours",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 90,
+        "structuredData": 94,
+        "composite": 92
+      },
+      "issues": [
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "No BreadcrumbList structured data",
+          "recommendation": "Add BreadcrumbList JSON-LD for better SERP display"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 249 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "All Tours & Experiences in Niagara Falls | Explore Niagara",
+        "titleLength": 58,
+        "description": "Browse and book the best tours and experiences in Niagara Falls. Maid of the Mist, Cave of the Winds, jet boats, wine tours and more.",
+        "descriptionLength": 133,
+        "h1Count": 1,
+        "h1Text": [
+          "All Experiences"
+        ],
+        "imageCount": 22,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 33,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/tours",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization"
+        ],
+        "wordCount": 249
+      }
+    },
+    {
+      "url": "http://localhost:3099/about",
+      "path": "/about",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 90,
+        "structuredData": 94,
+        "composite": 92
+      },
+      "issues": [
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "No BreadcrumbList structured data",
+          "recommendation": "Add BreadcrumbList JSON-LD for better SERP display"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 203 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "About Us — Our Story & Mission | Explore Niagara",
+        "titleLength": 48,
+        "description": "Learn about Explore Niagara — a team of passionate locals helping visitors discover the best tours and attractions in Niagara Falls.",
+        "descriptionLength": 132,
+        "h1Count": 1,
+        "h1Text": [
+          "About Explore Niagara"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 13,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/about",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization"
+        ],
+        "wordCount": 203
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog",
+      "path": "/blog",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 90,
+        "structuredData": 94,
+        "composite": 92
+      },
+      "issues": [
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "No BreadcrumbList structured data",
+          "recommendation": "Add BreadcrumbList JSON-LD for better SERP display"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 213 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Blog — Tips, Guides & Stories | Explore Niagara",
+        "titleLength": 47,
+        "description": "Tips, guides, and stories to help you get the most out of your Niagara Falls adventure. Travel guides, seasonal tips, and insider recommendations.",
+        "descriptionLength": 146,
+        "h1Count": 1,
+        "h1Text": [
+          "Blog"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 19,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization"
+        ],
+        "wordCount": 213
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/top-10-things-to-do-niagara-falls",
+      "path": "/blog/top-10-things-to-do-niagara-falls",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (62 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 789 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Top 10 Things to Do in Niagara Falls in 2026 | Explore Niagara",
+        "titleLength": 62,
+        "description": "Planning a trip to Niagara Falls? From the iconic Maid of the Mist to hidden wine trails, here are the must-do experiences for an unforgettable visit.",
+        "descriptionLength": 150,
+        "h1Count": 1,
+        "h1Text": [
+          "Top 10 Things to Do in Niagara Falls in 2026"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/top-10-things-to-do-niagara-falls",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 789
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/maid-of-the-mist-complete-guide",
+      "path": "/blog/maid-of-the-mist-complete-guide",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (63 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 543 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "The Complete Guide to Maid of the Mist (2026) | Explore Niagara",
+        "titleLength": 63,
+        "description": "Everything you need to know about the Maid of the Mist — tickets, best times to go, what to wear, and how to make the most of your boat tour experience.",
+        "descriptionLength": 152,
+        "h1Count": 1,
+        "h1Text": [
+          "The Complete Guide to Maid of the Mist (2026)"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/maid-of-the-mist-complete-guide",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 543
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/niagara-falls-winter-guide",
+      "path": "/blog/niagara-falls-winter-guide",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (66 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 468 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Visiting Niagara Falls in Winter: What to Expect | Explore Niagara",
+        "titleLength": 66,
+        "description": "The falls are magical year-round. Frozen mist, glowing ice formations, and zero crowds — here's why a winter visit should be on your bucket list.",
+        "descriptionLength": 145,
+        "h1Count": 1,
+        "h1Text": [
+          "Visiting Niagara Falls in Winter: What to Expect"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/niagara-falls-winter-guide",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 468
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/niagara-wine-trail-food-guide",
+      "path": "/blog/niagara-wine-trail-food-guide",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 80,
+        "structuredData": 97,
+        "composite": 87
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (65 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (106 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 577 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Niagara Wine Trail: A Food & Wine Lover's Guide | Explore Niagara",
+        "titleLength": 65,
+        "description": "Discover world-class icewine, farm-to-table dining, and hidden vineyard gems along the Niagara wine trail.",
+        "descriptionLength": 106,
+        "h1Count": 1,
+        "h1Text": [
+          "Niagara Wine Trail: A Food & Wine Lover's Guide"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/niagara-wine-trail-food-guide",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 577
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/best-time-to-visit-niagara-falls",
+      "path": "/blog/best-time-to-visit-niagara-falls",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (72 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 445 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Best Time to Visit Niagara Falls: Month-by-Month Guide | Explore Niagara",
+        "titleLength": 72,
+        "description": "When should you visit Niagara Falls? We break down weather, crowds, prices, and what's open each month to help you pick the perfect time.",
+        "descriptionLength": 137,
+        "h1Count": 1,
+        "h1Text": [
+          "Best Time to Visit Niagara Falls: Month-by-Month Guide"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/best-time-to-visit-niagara-falls",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 445
+      }
+    },
+    {
+      "url": "http://localhost:3099/blog/niagara-falls-with-kids",
+      "path": "/blog/niagara-falls-with-kids",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Title too long (64 chars, max 60)",
+          "recommendation": "Shorten the title to under 60 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "warning",
+          "category": "content",
+          "message": "Low word count: 522 words (target: 1000+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Niagara Falls with Kids: Family-Friendly Guide | Explore Niagara",
+        "titleLength": 64,
+        "description": "Traveling to Niagara Falls with children? Here's how to plan a family trip that keeps everyone entertained — from toddlers to teenagers.",
+        "descriptionLength": 136,
+        "h1Count": 1,
+        "h1Text": [
+          "Niagara Falls with Kids: Family-Friendly Guide"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 15,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/blog/niagara-falls-with-kids",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "Article",
+          "BreadcrumbList"
+        ],
+        "wordCount": 522
+      }
+    },
+    {
+      "url": "http://localhost:3099/collections/maid-of-the-mist",
+      "path": "/collections/maid-of-the-mist",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 95,
+        "structuredData": 97,
+        "composite": 96
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (98 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "warning",
+          "category": "technical",
+          "message": "Skipped heading level: H1 → H3",
+          "recommendation": "Don't skip heading levels. Use H2 instead of H3",
+          "affectedElement": "Niagara Falls: Maid of the Mist and Observation To"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Maid of the Mist Tours — Niagara Falls | Explore Niagara",
+        "titleLength": 56,
+        "description": "Experience the iconic Maid of the Mist boat tour and get up close to the thundering Niagara Falls.",
+        "descriptionLength": 98,
+        "h1Count": 1,
+        "h1Text": [
+          "Maid of the Mist"
+        ],
+        "imageCount": 14,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 25,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/collections/maid-of-the-mist",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "BreadcrumbList",
+          "ItemList"
+        ],
+        "wordCount": 331
+      }
+    },
+    {
+      "url": "http://localhost:3099/collections/cave-of-the-winds",
+      "path": "/collections/cave-of-the-winds",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 95,
+        "structuredData": 97,
+        "composite": 96
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (81 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "warning",
+          "category": "technical",
+          "message": "Skipped heading level: H1 → H3",
+          "recommendation": "Don't skip heading levels. Use H2 instead of H3",
+          "affectedElement": "Daredevil Tour with Cave of the Winds Admission"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Cave of the Winds Tours — Niagara Falls | Explore Niagara",
+        "titleLength": 57,
+        "description": "Feel the raw power of Niagara Falls from the Hurricane Deck at Cave of the Winds.",
+        "descriptionLength": 81,
+        "h1Count": 1,
+        "h1Text": [
+          "Cave of the Winds"
+        ],
+        "imageCount": 14,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 25,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/collections/cave-of-the-winds",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "BreadcrumbList",
+          "ItemList"
+        ],
+        "wordCount": 325
+      }
+    },
+    {
+      "url": "http://localhost:3099/collections/jet-boats",
+      "path": "/collections/jet-boats",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (85 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "warning",
+          "category": "technical",
+          "message": "Skipped heading level: H1 → H3",
+          "recommendation": "Don't skip heading levels. Use H2 instead of H3",
+          "affectedElement": "Niagara Falls, Canada: Whirlpool Jet Boat Tour"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 246 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Jet Boats Tours — Niagara Falls | Explore Niagara",
+        "titleLength": 49,
+        "description": "Get your adrenaline pumping with high-speed jet boat rides through the Niagara Gorge.",
+        "descriptionLength": 85,
+        "h1Count": 1,
+        "h1Text": [
+          "Jet Boats"
+        ],
+        "imageCount": 14,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 25,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/collections/jet-boats",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "BreadcrumbList",
+          "ItemList"
+        ],
+        "wordCount": 246
+      }
+    },
+    {
+      "url": "http://localhost:3099/collections/experience-niagara",
+      "path": "/collections/experience-niagara",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 97,
+        "composite": 90
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (85 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "warning",
+          "category": "technical",
+          "message": "Skipped heading level: H1 → H3",
+          "recommendation": "Don't skip heading levels. Use H2 instead of H3",
+          "affectedElement": "Niagara Falls cruise and \"Journey Behind the Falls"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 216 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Experience Niagara Tours — Niagara Falls | Explore Niagara",
+        "titleLength": 58,
+        "description": "Multi-attraction passes and all-inclusive experiences to make the most of your visit.",
+        "descriptionLength": 85,
+        "h1Count": 1,
+        "h1Text": [
+          "Experience Niagara"
+        ],
+        "imageCount": 14,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 25,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/collections/experience-niagara",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization",
+          "BreadcrumbList",
+          "ItemList"
+        ],
+        "wordCount": 216
+      }
+    },
+    {
+      "url": "http://localhost:3099/privacy",
+      "path": "/privacy",
+      "timestamp": "2026-03-25T16:08:13.741Z",
+      "scores": {
+        "performance": 0,
+        "accessibility": 0,
+        "bestPractices": 0,
+        "seo": 0,
+        "contentSeo": 85,
+        "structuredData": 94,
+        "composite": 89
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "category": "meta",
+          "message": "Meta description too short (99 chars, min 120)",
+          "recommendation": "Expand to at least 120 characters"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "Organization sameAs is empty",
+          "recommendation": "Add social media profile URLs to sameAs"
+        },
+        {
+          "severity": "info",
+          "category": "structured-data",
+          "message": "No BreadcrumbList structured data",
+          "recommendation": "Add BreadcrumbList JSON-LD for better SERP display"
+        },
+        {
+          "severity": "info",
+          "category": "content",
+          "message": "Low word count: 117 words (target: 300+)",
+          "recommendation": "Add more substantive content to the page"
+        }
+      ],
+      "coreWebVitals": {
+        "lcp": null,
+        "cls": null,
+        "inp": null
+      },
+      "meta": {
+        "title": "Privacy Policy | Explore Niagara",
+        "titleLength": 32,
+        "description": "Explore Niagara's privacy policy. Learn how we collect, use, and protect your personal information.",
+        "descriptionLength": 99,
+        "h1Count": 1,
+        "h1Text": [
+          "Privacy Policy"
+        ],
+        "imageCount": 2,
+        "imagesWithoutAlt": 0,
+        "internalLinkCount": 13,
+        "externalLinkCount": 0,
+        "canonicalUrl": "https://explore-niagara.com/privacy",
+        "hasOgTitle": true,
+        "hasOgDescription": true,
+        "hasOgImage": true,
+        "hasTwitterCard": true,
+        "jsonLdTypes": [
+          "WebSite",
+          "Organization"
+        ],
+        "wordCount": 117
+      }
+    }
+  ],
+  "compositeScore": 91,
+  "totalIssues": {
+    "critical": 0,
+    "warning": 22,
+    "info": 26
+  }
+}

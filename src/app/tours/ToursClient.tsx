@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, SlidersHorizontal, ArrowUpDown, Loader2 } from "lucide-react";
+import { getDestinationSync } from "@/config/destination";
 import TourCard from "@/components/TourCard";
 import type { Tour } from "@/lib/holibob/types";
 
@@ -84,7 +85,7 @@ export default function ToursClient({
             }
           }`,
           variables: {
-            where: { freeText: searchQuery || "Niagara Falls" },
+            where: { freeText: searchQuery || getDestinationSync().searchTerm },
             seenProductIdList: seenIds,
             count: 20,
           },
@@ -131,7 +132,7 @@ export default function ToursClient({
             {searchQuery ? `Results for "${searchQuery}"` : "All Experiences"}
           </h1>
           <p className="text-gray-500 max-w-2xl">
-            Browse all available tours and experiences in Niagara Falls. Book
+            Browse all available tours and experiences in {getDestinationSync().name}. Book
             online for instant confirmation and flexible cancellation.
           </p>
         </div>

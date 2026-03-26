@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import { defaultOgImage } from "@/lib/seo/metadata";
 import { productDiscovery, transformProductToTour } from "@/lib/holibob/api";
+import { getDestinationSync } from "@/config/destination";
 import ToursClient from "./ToursClient";
 
 export const dynamic = "force-dynamic";
 
+const config = getDestinationSync();
+
 export const metadata: Metadata = {
-  title: "All Tours & Experiences in Niagara Falls",
+  title: `All Tours & Experiences in ${config.name}`,
   description:
-    "Browse and book the best tours and experiences in Niagara Falls. Maid of the Mist, Cave of the Winds, jet boats, wine tours and more.",
+    `Browse and book the best tours and experiences in ${config.name}.`,
   openGraph: {
-    title: "All Tours & Experiences in Niagara Falls | Explore Niagara",
+    title: `All Tours & Experiences in ${config.name} | ${config.brandName}`,
     description:
-      "Browse and book the best tours, activities, and experiences in Niagara Falls.",
+      `Browse and book the best tours, activities, and experiences in ${config.name}.`,
     images: [defaultOgImage],
   },
   alternates: {
-    canonical: "https://explore-niagara.com/tours",
+    canonical: `https://${config.domain}/tours`,
   },
 };
 
@@ -26,7 +29,7 @@ export default async function ToursPage({
   searchParams: Promise<{ q?: string }>;
 }) {
   const { q } = await searchParams;
-  const searchTerm = q || "Niagara Falls";
+  const searchTerm = q || config.searchTerm;
 
   const result = await productDiscovery({
     where: { freeText: searchTerm },

@@ -3,6 +3,9 @@
 import { useState } from "react";
 import TourCard from "./TourCard";
 import type { Tour } from "@/lib/holibob/types";
+import { getDestinationSync } from "@/config/destination";
+
+const config = getDestinationSync();
 
 export default function LoadMoreTours({
   initialSeenIds,
@@ -33,7 +36,7 @@ export default function LoadMoreTours({
             }
           }`,
           variables: {
-            where: { freeText: "Niagara Falls" },
+            where: { freeText: config.searchTerm },
             seenProductIdList: seenIds,
             count: 20,
           },

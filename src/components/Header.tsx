@@ -5,13 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { getDestinationSync } from "@/config/destination";
 
-const collections = [
-  { name: "Maid of the Mist", href: "/collections/maid-of-the-mist" },
-  { name: "Cave of the Winds", href: "/collections/cave-of-the-winds" },
-  { name: "Experience Niagara", href: "/collections/experience-niagara" },
-  { name: "Jet Boats", href: "/collections/jet-boats" },
-];
+const config = getDestinationSync();
+const collections = config.collections.map((c) => ({
+  name: c.name,
+  href: `/collections/${c.slug}`,
+}));
 
 const guideSections = [
   { name: "Facts", href: "/guide#facts" },
@@ -78,7 +78,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.webp"
-              alt="Explore Niagara — Home"
+              alt={`${config.brandName} — Home`}
               width={200}
               height={50}
               className="h-8 sm:h-10 w-auto"
@@ -242,7 +242,7 @@ export default function Header() {
                 className="flex items-center justify-between text-sm font-medium text-dark py-3 w-full"
                 aria-expanded={guideOpen}
               >
-                Niagara Guide
+                {config.name} Guide
                 <ChevronDown
                   className={`w-4 h-4 transition-transform ${guideOpen ? "rotate-180" : ""}`}
                 />
@@ -286,8 +286,8 @@ export default function Header() {
 
             {/* Contact info in mobile menu */}
             <div className="pt-4 mt-2 border-t border-gray-100">
-              <a href="mailto:info@exploreniagara.com" className="block text-sm text-gray-500 py-2">
-                info@exploreniagara.com
+              <a href={`mailto:${config.email}`} className="block text-sm text-gray-500 py-2">
+                {config.email}
               </a>
             </div>
           </div>
