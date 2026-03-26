@@ -29,6 +29,16 @@ export default function DateStep({ productId, onSelect }: DateStepProps) {
         const result = await fetchAvailabilityList(productId);
         setSessionId(result.sessionId);
         setDateOptions(result.options);
+        // Store any initial availabilities returned by the API
+        if (result.availabilities.length > 0) {
+          setAvailableDates(
+            result.availabilities.map((a) => ({
+              id: a.id,
+              date: a.date,
+              price: a.guidePriceFormattedText,
+            }))
+          );
+        }
       } catch (err) {
         setError("Unable to check availability. Please try again.");
         console.error(err);
@@ -39,17 +49,18 @@ export default function DateStep({ productId, onSelect }: DateStepProps) {
     init();
   }, [productId]);
 
-  // Step 2: Fetch dates for current month
+  // Step 2: Fetch dates for current month (only if date range options exist)
   const fetchDatesForMonth = useCallback(
     async (month: Date) => {
-      if (!sessionId || dateOptions.length === 0) return;
+      if (!sessionId) return;
+
+      const startOpt = dateOptions.find((o) => o.type === "START_DATE");
+      const endOpt = dateOptions.find((o) => o.type === "END_DATE");
+      // If no date range options, initial availabilities are already loaded
+      if (!startOpt || !endOpt) return;
 
       setLoadingDates(true);
       try {
-        const startOpt = dateOptions.find((o) => o.type === "START_DATE");
-        const endOpt = dateOptions.find((o) => o.type === "END_DATE");
-        if (!startOpt || !endOpt) return;
-
         const firstDay = new Date(month.getFullYear(), month.getMonth(), 1);
         const lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
 
