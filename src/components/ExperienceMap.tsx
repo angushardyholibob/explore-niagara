@@ -6,7 +6,6 @@ import {
   Map,
   AdvancedMarker,
   InfoWindow,
-  useMap,
 } from "@vis.gl/react-google-maps";
 import Link from "next/link";
 import Image from "next/image";

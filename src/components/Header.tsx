@@ -13,10 +13,20 @@ const collections = [
   { name: "Jet Boats", href: "/collections/jet-boats" },
 ];
 
+const guideSections = [
+  { name: "Facts", href: "/guide#facts" },
+  { name: "History", href: "/guide#history" },
+  { name: "Daredevils", href: "/guide#daredevils" },
+  { name: "Science & Power", href: "/guide#power" },
+  { name: "Trivia", href: "/guide#trivia" },
+  { name: "Travel Tips", href: "/guide#tips" },
+];
+
 export default function Header() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -126,6 +136,7 @@ export default function Header() {
             >
               Guide
             </Link>
+
             <Link
               href="/blog"
               className="text-sm font-medium text-dark hover:text-primary transition-colors"
@@ -225,13 +236,39 @@ export default function Header() {
                 </div>
               )}
             </div>
-            <Link
-              href="/guide"
-              className="block text-sm font-medium text-dark py-3"
-              onClick={() => setMobileOpen(false)}
-            >
-              Niagara Guide
-            </Link>
+            <div>
+              <button
+                onClick={() => setGuideOpen(!guideOpen)}
+                className="flex items-center justify-between text-sm font-medium text-dark py-3 w-full"
+                aria-expanded={guideOpen}
+              >
+                Niagara Guide
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${guideOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              {guideOpen && (
+                <div className="pl-4 space-y-0.5 pb-2">
+                  <Link
+                    href="/guide"
+                    className="block text-sm text-primary font-medium py-2.5"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Complete Guide
+                  </Link>
+                  {guideSections.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block text-sm text-gray-600 py-2.5 hover:text-primary"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <Link
               href="/blog"
               className="block text-sm font-medium text-dark py-3"

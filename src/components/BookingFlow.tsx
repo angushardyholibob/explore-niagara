@@ -265,7 +265,9 @@ export default function BookingFlow({
               if (!paymentRequired) {
                 clearBookingState(productId);
                 import("@/lib/holibob/client-api").then(({ commitBooking }) =>
-                  commitBooking(bookingId).then(setConfirmationData)
+                  commitBooking(bookingId)
+                    .then(setConfirmationData)
+                    .catch(() => setConfirmationData({ code: "", state: "FAILED" }))
                 );
               }
             }}
