@@ -6,6 +6,7 @@ const configs: Record<string, () => Promise<{ default: DestinationConfig }>> = {
   tokyo: () => import("./destinations/tokyo"),
   queenstown: () => import("./destinations/queenstown"),
   wellington: () => import("./destinations/wellington"),
+  edinburgh: () => import("./destinations/edinburgh"),
 };
 
 // Detect destination from env var — defaults to "niagara"
