@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   APIProvider,
   Map,
   AdvancedMarker,
   InfoWindow,
+  useMap,
 } from "@vis.gl/react-google-maps";
 import Link from "next/link";
 import Image from "next/image";
@@ -107,6 +108,36 @@ function ExperienceMarker({
   );
 }
 
+/** Automatically fits the map bounds to show all experience markers */
+function FitBounds({ experiences }: { experiences: MapExperience[] }) {
+  const map = useMap();
+  const prevIdsRef = useRef<string>("");
+
+  useEffect(() => {
+    if (!map || experiences.length === 0) return;
+
+    // Only refit when the set of experiences actually changes
+    const ids = experiences.map((e) => e.id).sort().join(",");
+    if (ids === prevIdsRef.current) return;
+    prevIdsRef.current = ids;
+
+    const bounds = new google.maps.LatLngBounds();
+    experiences.forEach((exp) => {
+      bounds.extend({ lat: exp.latitude, lng: exp.longitude });
+    });
+
+    // If only one marker, center on it with a reasonable zoom
+    if (experiences.length === 1) {
+      map.setCenter({ lat: experiences[0].latitude, lng: experiences[0].longitude });
+      map.setZoom(14);
+    } else {
+      map.fitBounds(bounds, { top: 50, right: 50, bottom: 50, left: 50 });
+    }
+  }, [map, experiences]);
+
+  return null;
+}
+
 export default function ExperienceMap({
   experiences,
   center: centerProp,
@@ -139,6 +170,7 @@ export default function ExperienceMap({
           fullscreenControl={true}
           className="w-full h-full"
         >
+          <FitBounds experiences={experiences} />
           {experiences.map((exp) => (
             <ExperienceMarker
               key={exp.id}
