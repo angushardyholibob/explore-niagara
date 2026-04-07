@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -82,13 +81,20 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />
-        <Script
-          src="https://embed.holibob.ai/embed.js"
-          data-org={config.chatWidget.org}
-          data-label={config.chatWidget.label}
-          data-color={config.chatWidget.color}
-          data-default-location={config.chatWidget.defaultLocation}
-          strategy="lazyOnload"
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var s = document.createElement('script');
+                s.src = 'https://dmo-example-7a5ae9b1bcbb.herokuapp.com/embed.js';
+                s.setAttribute('data-org', '${config.chatWidget.org}');
+                s.setAttribute('data-label', '${config.chatWidget.label}');
+                s.setAttribute('data-color', '${config.chatWidget.color}');
+                s.setAttribute('data-default-location', '${config.chatWidget.defaultLocation}');
+                document.body.appendChild(s);
+              })();
+            `,
+          }}
         />
       </body>
     </html>
