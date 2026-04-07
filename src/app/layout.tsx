@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -81,6 +82,14 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />
+        <Script
+          src="https://embed.holibob.ai/embed.js"
+          data-org={config.chatWidget.org}
+          data-label={config.chatWidget.label}
+          data-color={config.chatWidget.color}
+          data-default-location={config.chatWidget.defaultLocation}
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

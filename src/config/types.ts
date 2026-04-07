@@ -1,5 +1,3 @@
-import type { LucideIcon } from "lucide-react";
-
 export interface DestinationConfig {
   // ─── Identity ───
   slug: string; // "niagara" | "tokyo" | "queenstown"
@@ -93,6 +91,14 @@ export interface DestinationConfig {
     defaultTitle: string;
     defaultDescription: string;
     keywords: string[];
+  };
+
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: string; // data-org attribute
+    label: string;
+    color: string;
+    defaultLocation: string;
   };
 
   // ─── Analytics seed data ───

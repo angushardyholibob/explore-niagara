@@ -785,6 +785,14 @@ const tokyo: DestinationConfig = {
     ],
   },
 
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: "exploretokyo",
+    label: "Plan Your Trip",
+    color: "#1e6bb8",
+    defaultLocation: "Tokyo, Japan",
+  },
+
   // ─── Analytics seed data ───
   searchTerms: [
     "Tokyo temples and shrines",

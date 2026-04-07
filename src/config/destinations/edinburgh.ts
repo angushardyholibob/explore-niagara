@@ -780,6 +780,14 @@ const edinburgh: DestinationConfig = {
     ],
   },
 
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: "exploreedinburgh",
+    label: "Plan Your Trip",
+    color: "#1e6bb8",
+    defaultLocation: "Edinburgh, Scotland",
+  },
+
   // ─── Analytics seed data ───
   searchTerms: [
     "Edinburgh things to do",

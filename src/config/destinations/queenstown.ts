@@ -833,6 +833,14 @@ const queenstown: DestinationConfig = {
     ],
   },
 
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: "explorequeenstown",
+    label: "Plan Your Trip",
+    color: "#1e6bb8",
+    defaultLocation: "Queenstown, New Zealand",
+  },
+
   // ─── Search Terms ───
   searchTerms: [
     "Queenstown bungee jumping",

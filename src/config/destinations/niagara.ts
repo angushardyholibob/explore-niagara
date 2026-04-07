@@ -718,6 +718,14 @@ const config: DestinationConfig = {
     ],
   },
 
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: "exploreniagara",
+    label: "Plan Your Trip",
+    color: "#1e6bb8",
+    defaultLocation: "Niagara Falls, Ontario",
+  },
+
   // ─── Analytics seed data ───
   searchTerms: [
     "niagara falls tours",

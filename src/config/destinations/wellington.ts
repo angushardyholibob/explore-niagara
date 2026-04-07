@@ -867,6 +867,14 @@ const wellington: DestinationConfig = {
     ],
   },
 
+  // ─── Chat Widget ───
+  chatWidget: {
+    org: "explorewellington",
+    label: "Plan Your Trip",
+    color: "#1e6bb8",
+    defaultLocation: "Wellington, New Zealand",
+  },
+
   // ─── Analytics seed data ───
   searchTerms: [
     "Wellington things to do",
